@@ -1,2 +1,2 @@
 [build]
-    environment = { PHP_VERSION = "8.0.2" }
+    environment = { PHP_VERSION = "8.0" }
