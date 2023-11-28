@@ -1,0 +1,35 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+$(document).on('click', '#materiaInscrita_id', function() {
+  $('#modal').modal('show');
+});
+
+
+<label for="materiaInscrita_id" class="form-label">N° de Materias Inscritas</label>
+                            <x-adminlte-select class="form-control " id="materiaInscrita_id" name="materiaInscrita_id" aria-label="Default select example">
+                                <option selected disabled>Seleccione la cantidad de materias</option>
+                                @foreach ($materiaInscrita as $materiaInscritas)
+                                    <option data-toggle="modal" data-target="#modal" value="{{ $materiaInscritas->id }}" {{ old('materiaInscrita_id') == $materiaInscritas->id ? 'selected' : '' }}>{{ $materiaInscritas->cantidadMateria }}</option>
+                                @endforeach
+                            </x-adminlte-select>
+
+
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Confirmación</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que quieres seleccionar esta cantidad de materias?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

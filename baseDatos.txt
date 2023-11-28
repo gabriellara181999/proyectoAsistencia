@@ -1,0 +1,204 @@
+tabla alumno
+id
+nombre 
+apellido
+edad
+numero de estudiante
+contraseña
+direccion 
+idCarrera
+idCiclo
+idMateria
+
+materia
+id 
+nombremateria
+tipomateria
+idciclo
+idca
+numero
+requisito
+uv
+idcatedratico
+
+ciclo
+id
+nombre
+
+carrera
+id
+nombreCarrera
+idciclo
+
+catedratico
+id
+nombre
+apellido
+direccion
+edad
+
+horario
+id 
+dia
+turno
+id materia
+
+estado
+id
+nombreEstado
+
+asistencia
+id
+id estudiante
+id materia 
+id horario
+idestado
+
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->foreignId('ciclo_id')->constrained('ciclos')->onDelete('cascade');
+            $table->foreignId('carrera_id')->constrained('carreras')->onDelete('cascade');
+            $table->foreignId('materia_id')->constrained('materias')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('ciclo_id')->onDelete('casacade');
+            $table->dropColumn('carrera_id')->onDelete('casacade');
+            $table->dropColumn('materia_id')->onDelete('casacade');
+        });
+    }
+};
+
+
+
+
+@extends('layouts.app')
+
+@section('content')
+<section class="background-radial-gradient overflow-hidden" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300&family=Oswald:wght@600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+      .background-radial-gradient {
+        background-color: hsl(0, 0%, 0%);
+        background-image: radial-gradient(650px circle at center top,
+            hsl(0, 0%, 15%) 15%,
+            hsl(0, 0%, 10%) 35%,
+            hsl(0, 0%, 5%) 75%,
+            hsl(0, 0%, 4%) 80%,
+            transparent 100%),
+            radial-gradient(1250px circle at center bottom,
+            hsl(0, 0%, 25%) 15%,
+            hsl(0, 0%, 10%) 35%,
+            hsl(0, 0%, 5%) 75%,
+            hsl(0, 0%, 4%) 80%,
+            transparent 100%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        }
+
+        .gradient-custom-2 {
+        background: #fccb90;
+        background-image: linear-gradient(to right, #9b1212, #770d1b, #510f1c, #2c0e15, #000000);
+        }
+        #radius-shape-1 {
+            height: 220px;
+            width: 220px;
+            top: -60px;
+            left: -130px;
+            background: radial-gradient(#9b1212, #510f1c);
+            overflow: hidden;
+            position: absolute;
+        }
+
+        #radius-shape-2 {
+            border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+            bottom: -60px;
+            right: -110px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(#9b1212, #510f1c);
+            overflow: hidden;
+            position: absolute;
+        }
+
+        .bg-glass {
+            background-color: hsla(0, 0%, 90%, 0.7) !important;
+            backdrop-filter: saturate(200%) blur(25px);
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                    The best offer <br />
+                    <span style="color: hsl(218, 81%, 75%)">for your business</span>
+                </h1>
+                <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Temporibus, expedita iusto veniam atque, magni tempora mollitia
+                    dolorum consequatur nulla, neque debitis eos reprehenderit quasi
+                    ab ipsum nisi dolorem modi. Quos?
+                </p>
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                <div class="card bg-glass">
+                    <div class="card-body card-body p-md-5 mx-md-4">
+                        <div class="text-center">
+                            <img src="{{ asset('/img/uma.svg') }}"style="width: 95px;" alt="logo">
+                            <h4 class="mt-1 mb-3 pb-1" style="font-family: 'Martian Mono', monospace;
+                            font-family: 'Oswald', sans-serif;">Comprometidos con la Educación</h4>
+                        </div>
+                        <form>
+                          <h2 class="text-center" style="font-family: 'Black Ops One'">Iniciar Sesión</h2>
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form2Example11" style="font-family: 'Roboto', sans-serif;">N° de Catedrático</label>
+                              <input type="text" id="form2Example11" class="form-control" placeholder="Ingresa tu número de catedrático" />
+                          </div>
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="form2Example22" style="font-family: 'Roboto', sans-serif;">Contraseña</label>
+                              <input type="password" id="form2Example22" class="form-control" placeholder="Ingresa tu contraseña" />
+                          </div>
+                          <div class="text-center pt-1 mb-5 pb-1">
+                            <button class="btn btn-login btn-primary btn-block gradient-custom-2" style="font-family: 'Roboto', sans-serif;width: 100%; background-color: transparent; border: none; box-shadow: 0 20px 15px rgba(0, 0, 0, 0.1);" type="button">Iniciar Sesión</button>
+                        </div>
+                      </form>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section: Design Block -->
+@endsection
